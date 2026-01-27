@@ -1,68 +1,63 @@
 let url = 'https://randomuser.me/api/'
 
+let elements = { 
+    loader : document.querySelector('.loader'),
+    card : document.querySelector('.card'),
+    name : document.querySelector("#user-name"),
+    country : document.querySelector("#user-country"),
+    image : document.querySelector("#user-img"),
+    email : document.querySelector('#user-email'),
+    age : document.querySelector('#user-age'),
+    btn : document.querySelector('#btn')
+}
 
+//functin to get the users informationt from a public api 
 async function getUser(){
     try{
         let response = await fetch(url)
         let data = await response.json()
-
-        console.log(data.results)
-
 
         return data.results[0]
 
     }catch(err){
         console.log(`the error message : ${err}`)
     }
-
 }
-
-
+ 
+//display the user on the screen 
 async function displayUsre(){
-    let loader = document.querySelector('.loader')
-    let card = document.querySelector('.card')
-    
     try{
+        showLoading()
+            let user = await getUser()
+        updateUi(user)
 
-        loader.style.display = "block"
-        card.style.opacity = '.3'
-
-
-        let user = await getUser()
-
-        
-        let name = document.querySelector('#user-name')
-        name.textContent =` ${user.name.first} ${user.name.last}`
-
-        let country = document.querySelector('#user-country')
-        country.textContent = user.location.country
-
-
-        let image = document.querySelector("#user-img")
-        image.setAttribute("src" , user.picture.large)
-
-        let email = document.querySelector('#user-email')
-        email.textContent = user.email
-
-        let age = document.querySelector('#user-age')
-        age.textContent = user.dob.age
-
-
-        }catch(err){
-            console.log(err)
-        }finally{
-            loader.style.display = 'none'
-            card.style.opacity = '1'
-
-        }
+    }catch(err){
+        console.log(err)
+    }finally{
+        hideLoading()
+    }
 
 }
-
-
-let button = document.querySelector('#btn')
-button.addEventListener('click', () => {
+//functin to undate the user
+function updateUi(user){
+    elements.name.textContent =` ${user.name.first} ${user.name.last}`
+    elements.country.textContent = user.location.country
+    elements.image.setAttribute("src" , user.picture.large)
+    elements.email.textContent = user.email
+    elements.age.textContent = user.dob.age
+}
+// show and hide the loading style
+function showLoading(){
+    elements.loader.style.display = "block";
+    elements.card.style.opacity = ".3"
+}
+function hideLoading(){
+    elements.loader.style.display = 'none'
+    elements.card.style.opacity = '1'
+}
+// event listener 
+elements.btn.addEventListener('click', () => {
     displayUsre()
-    console.log('clicked')
 })
 
 
