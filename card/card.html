@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User Generator</title>
+    <link rel="stylesheet" href="card.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Random User Generator</h1>
+        
+        <!-- Loader -->
+        <div class="loader"></div>
+        
+        <!-- Error Message -->
+        <div class="error-message" id="error-message">
+            <i class="fas fa-exclamation-circle">dfgdfsgfdg</i>
+            <p id="error-text">Something went wrong!</p>
+            <button class="retry-btn" id="retry-btn">Try Again</button>
+        </div>
+
+        <!-- User Card -->
+        <div class="card">
+            <div class="card-header">
+                <img src="https://via.placeholder.com/150" alt="User" id="user-img" class="user-img">
+                <button class="favorite-btn" id="favorite-btn" title="Add to favorites">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+            
+            <div class="card-body">
+                <h2 id="user-name" class="user-name">John Doe</h2>
+                
+                <div class="user-info">
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span id="user-email">john.doe@example.com</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="user-location">City, Country</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span id="user-age">25 years old</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span id="user-phone">(123) 456-7890</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-user"></i>
+                        <span id="user-username">johndoe123</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <button class="btn" id="btn">
+                    <i class="fas fa-sync-alt"></i>
+                    Get New User
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Options (for later tasks) -->
+        <div class="filters">
+            <h3>Filters</h3>
+            <div class="filter-group">
+                <label for="gender-filter">Gender:</label>
+                <select id="gender-filter">
+                    <option value="">Any</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="nationality-filter">Nationality:</label>
+                <select id="nationality-filter">
+                    <option value="">Any</option>
+                    <option value="us">United States</option>
+                    <option value="gb">United Kingdom</option>
+                    <option value="fr">France</option>
+                    <option value="de">Germany</option>
+                    <option value="es">Spain</option>
+                    <option value="au">Australia</option>
+                    <option value="ca">Canada</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="results-filter">Number of users:</label>
+                <select id="results-filter">
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Favorites Section -->
+        <div class="favorites-section">
+            <h2>
+                <i class="fas fa-heart"></i>
+                Favorites (<span id="favorites-count">0</span>)
+            </h2>
+            <div class="favorites-container" id="favorites-container">
+                <p class="empty-state">No favorites yet. Click the heart icon to save users!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="card.js"></script>
+</body>
+</html>

@@ -25,7 +25,7 @@ async function getUser(){
 }
  
 //display the user on the screen 
-async function displayUsre(){
+async function displayUser(){
     try{
         showLoading()
             let user = await getUser()
@@ -57,8 +57,6 @@ function hideLoading(){
 }
 // event listener 
 elements.btn.addEventListener('click', () => {
-    displayUsre()
-})
-
-
+    displayUser()
+    })
 
