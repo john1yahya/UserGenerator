@@ -11,36 +11,45 @@ let ui = {
     btn : document.querySelector('#btn'),
     phone : document.querySelector('#user-phone'),
     userName: document.querySelector('#user-username'),
-    favorit : document.querySelector('.favorite-btn')
+    favorit : document.querySelector('.favorite-btn'),
+    errorMessage : document.querySelector('.error-message'),
+    retryBtn : document.querySelector(".retry-btn")
 }
 
 //functin to get the users informationt from a public api
 
 async function getUser(){
-    try{
         let response = await fetch(url)
         let data = await response.json()
 
+        if (!data.results || data.results.length === 0) {
+            throw new Error("No users returned from API")
+        }
         return data.results[0]
-
-    }catch(err){
-        console.log(`the error message : ${err}`)
-    }
 }
  
 //display the user on the screen 
 async function displayUser(){
     try{
+        hideError()
         showLoading()
             let user = await getUser()
         updateUi(user)
 
     }catch(err){
-        console.log(err)
+        showError(err)
     }finally{
         hideLoading()
     }
 
+}
+function hideError(){
+    ui.errorMessage.style.display = 'none'
+    ui.errorMessage.querySelector("#error-text").textContent = ''
+}
+function showError(err){
+    ui.errorMessage.style.display = 'block'
+    ui.errorMessage.querySelector("#error-text").textContent = err.message
 }
 //functin to undate the user
 function updateUi(user){
@@ -50,7 +59,7 @@ function updateUi(user){
     ui.email.textContent = user.email
     ui.age.textContent = `${user.dob.age} years old`
     ui.phone.textContent = user.phone
-    ui.userName.textContent = user.login.
+    ui.userName.textContent = user.login.username
     console.log(user)
 }
 // show and hide the loading style
@@ -75,5 +84,7 @@ ui.favorit.addEventListener('click', () => {
         ui.favorit.classList.add('favorite');
     }
 });
-
+ui.retryBtn.addEventListener('click', () => {
+    displayUser()
+})
 
