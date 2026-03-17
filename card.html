@@ -103,12 +103,20 @@
                 <i class="fas fa-heart"></i>
                 Favorites (<span id="favorites-count">0</span>)
             </h2>
-            <div class="favorites-container" id="favorites-container">
+
+            <!-- <div class="favorites-container" id="favorites-container">
                 <p class="empty-state">No favorites yet. Click the heart icon to save users!</p>
+            </div> -->
+            <div class="favorite-users">
+                <div class="favorite-card">
+                    <button class="remove-fav">✕</button>
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="user">
+                    <p>John Doe</p>
+            </div>
             </div>
         </div>
     </div>
 
-    <script src="card.js"></script>
+    <script src="card.js" type="module"></script>
 </body>
 </html>

@@ -19,5 +19,3 @@ You can save your favorites and revisit them anytime.
 - Error handling 
 - HTTP responses
 - ...
-
-

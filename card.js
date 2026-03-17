@@ -1,4 +1,4 @@
-let url = 'https://randomuser.me/api/'
+
 
 let ui = { 
     loader : document.querySelector('.loader'),
@@ -19,7 +19,7 @@ let ui = {
 //functin to get the users informationt from a public api
 
 async function getUser(){
-        let response = await fetch(url)
+        let response = await fetch(urlBuilder())
         let data = await response.json()
 
         if (!data.results || data.results.length === 0) {
@@ -33,7 +33,7 @@ async function displayUser(){
     try{
         hideError()
         showLoading()
-            let user = await getUser()
+        let user = await getUser()
         updateUi(user)
 
     }catch(err){
@@ -43,6 +43,7 @@ async function displayUser(){
     }
 
 }
+// error related functions
 function hideError(){
     ui.errorMessage.style.display = 'none'
     ui.errorMessage.querySelector("#error-text").textContent = ''
@@ -53,13 +54,22 @@ function showError(err){
 }
 //functin to undate the user
 function updateUi(user){
-    ui.name.textContent =` ${user.name.first} ${user.name.last}`
-    ui.country.textContent = `${user.location.country}, ${user.location.city}`
-    ui.image.setAttribute("src" , user.picture.large)
-    ui.email.textContent = user.email
-    ui.age.textContent = `${user.dob.age} years old`
-    ui.phone.textContent = user.phone
-    ui.userName.textContent = user.login.username
+    const {
+        email,
+        dob:{age},
+        phone,
+        picture: {large},
+        login:{username},
+        name:{first,last},
+        location: {country, city}
+        } = user
+    ui.name.textContent =` ${first} ${last}`
+    ui.country.textContent = `${country}, ${city}`
+    ui.image.setAttribute("src" , large)
+    ui.email.textContent = email
+    ui.age.textContent = `${age} years old`
+    ui.phone.textContent = phone
+    ui.userName.textContent = username
     console.log(user)
 }
 // show and hide the loading style
@@ -71,6 +81,19 @@ function hideLoading(){
     ui.loader.style.display = 'none'
     ui.card.style.opacity = '1'
 }
+function urlBuilder(){
+    const gender = document.getElementById("gender-filter").value
+    const nationality = document.getElementById("nationality-filter").value;
+
+    let url = "https://randomuser.me/api/";
+
+    if(gender !== '') url += `?gender=${gender}`;
+    if(nationality !== '') url += `&nat=${nationality}`;
+
+    return url
+
+}
+
 // event listener 
 ui.btn.addEventListener('click', () => {
     displayUser()
@@ -87,4 +110,5 @@ ui.favorit.addEventListener('click', () => {
 ui.retryBtn.addEventListener('click', () => {
     displayUser()
 })
+
 
